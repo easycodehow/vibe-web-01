@@ -6,6 +6,7 @@
     <meta name="description" content="바이브웹코드 커뮤니티 - 함께 배우고 성장하는 개발자 공간">
     <title>커뮤니티 | 바이브웹코드</title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
     <!-- 상단 네비게이션 -->
@@ -21,19 +22,127 @@
                 <li><a href="index.html#benefits">기대효과</a></li>
                 <li><a href="community.html" class="active">커뮤니티</a></li>
             </ul>
+            <div class="auth-buttons">
+                <button id="loginBtn" class="btn btn-secondary">로그인</button>
+                <button id="logoutBtn" class="btn btn-secondary" style="display: none;">로그아웃</button>
+                <span id="userEmail" class="user-info" style="display: none;"></span>
+            </div>
         </nav>
     </header>
 
     <main class="community-main">
         <div class="container">
-            <div class="login-required">
+            <!-- 로그인 필요 메시지 -->
+            <div id="loginRequired" class="login-required">
                 <div class="login-message">
-                    <h2>커뮤니티</h2>
-                    <p>준비중입니다</p>
+                    <h2>로그인이 필요합니다</h2>
+                    <p>커뮤니티 게시판을 이용하시려면 로그인해주세요.</p>
+                    <button id="loginPromptBtn" class="btn btn-primary">로그인하기</button>
+                </div>
+            </div>
+
+            <!-- 커뮤니티 게시판 (로그인 후 표시) -->
+            <div id="communityBoard" class="community-board" style="display: none;">
+                <div class="board-header">
+                    <h2>자유게시판</h2>
+                    <p>바이브웹코드 학습자들과 자유롭게 소통하세요</p>
+                    <button id="newPostBtn" class="btn btn-primary">새 글 작성</button>
+                </div>
+
+                <!-- 게시글 작성 폼 -->
+                <div id="postForm" class="post-form" style="display: none;">
+                    <h3>새 글 작성</h3>
+                    <form id="createPostForm">
+                        <div class="form-group">
+                            <label for="postTitle">제목</label>
+                            <input type="text" id="postTitle" class="form-control" placeholder="제목을 입력하세요" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="postContent">내용</label>
+                            <textarea id="postContent" class="form-control" rows="8" placeholder="내용을 입력하세요" required></textarea>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">등록</button>
+                            <button type="button" id="cancelPostBtn" class="btn btn-secondary">취소</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- 게시글 목록 -->
+                <div class="posts-container">
+                    <div class="posts-header">
+                        <div class="posts-count">
+                            총 <span id="postsCount">0</span>개의 게시글
+                        </div>
+                        <div class="posts-filter">
+                            <select id="sortBy" class="form-select">
+                                <option value="latest">최신순</option>
+                                <option value="oldest">오래된순</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="postsList" class="posts-list">
+                        <!-- 게시글 목록이 동적으로 표시됩니다 -->
+                        <div class="loading">게시글을 불러오는 중...</div>
+                    </div>
+
+                    <!-- 페이지네이션 -->
+                    <div id="pagination" class="pagination">
+                        <!-- 페이지네이션이 동적으로 생성됩니다 -->
+                    </div>
                 </div>
             </div>
         </div>
     </main>
+
+    <!-- 로그인 모달 -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>로그인</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">이메일</label>
+                    <input type="email" id="loginEmail" class="form-control" placeholder="이메일을 입력하세요" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">비밀번호</label>
+                    <input type="password" id="loginPassword" class="form-control" placeholder="비밀번호를 입력하세요" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">로그인</button>
+                <p class="form-footer">
+                    계정이 없으신가요? <a href="#" id="showSignupModal">회원가입</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- 회원가입 모달 -->
+    <div id="signupModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>회원가입</h2>
+            <form id="signupForm">
+                <div class="form-group">
+                    <label for="signupEmail">이메일</label>
+                    <input type="email" id="signupEmail" class="form-control" placeholder="이메일을 입력하세요" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">비밀번호</label>
+                    <input type="password" id="signupPassword" class="form-control" placeholder="비밀번호를 입력하세요 (최소 6자)" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPasswordConfirm">비밀번호 확인</label>
+                    <input type="password" id="signupPasswordConfirm" class="form-control" placeholder="비밀번호를 다시 입력하세요" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">회원가입</button>
+                <p class="form-footer">
+                    이미 계정이 있으신가요? <a href="#" id="showLoginModal">로그인</a>
+                </p>
+            </form>
+        </div>
+    </div>
 
     <!-- 푸터 -->
     <footer class="footer">
@@ -65,5 +174,7 @@
     </footer>
 
     <script src="js/main.js"></script>
+    <script src="js/supabase.js"></script>
+    <script src="js/community.js"></script>
 </body>
 </html>

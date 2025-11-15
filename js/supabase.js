@@ -3,9 +3,8 @@
 // <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 // 환경변수 (실제 프로젝트에서는 .env 파일이나 환경변수로 관리)
-// TODO: Supabase 프로젝트를 생성한 후 아래 값을 실제 값으로 변경하세요
-const SUPABASE_URL = 'YOUR_SUPABASE_URL'; // 예: https://xxxxxxxxxxxxx.supabase.co
-const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+const SUPABASE_URL = 'https://ujvtmfukrtvyuxqgktxd.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVqdnRtZnVrcnR2eXV4cWdrdHhkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMxNjQyMzMsImV4cCI6MjA3ODc0MDIzM30.Qrkc63UDC87B78QXtpisw7pECuvrb4HfNinx-RT85r0';
 
 // Supabase 클라이언트 초기화
 let supabase = null;

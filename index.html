@@ -6,6 +6,7 @@
     <meta name="description" content="바이브웹코드 - 체계적인 웹 개발 학습 플랫폼">
     <title>바이브웹코드 | Web Development Learning Platform</title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
     <!-- 상단 고정 네비게이션 -->
@@ -21,6 +22,12 @@
                 <li><a href="#benefits">기대효과</a></li>
                 <li><a href="community.html">커뮤니티</a></li>
             </ul>
+            <div class="auth-buttons">
+                <button id="loginBtn" class="btn btn-secondary">로그인</button>
+                <button id="signupBtn" class="btn btn-primary">회원가입</button>
+                <button id="logoutBtn" class="btn btn-secondary" style="display: none;">로그아웃</button>
+                <span id="userEmail" class="user-info" style="display: none;"></span>
+            </div>
         </nav>
     </header>
 
@@ -72,6 +79,54 @@
         </section>
     </main>
 
+    <!-- 로그인 모달 -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>로그인</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">이메일</label>
+                    <input type="email" id="loginEmail" class="form-control" placeholder="이메일을 입력하세요" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">비밀번호</label>
+                    <input type="password" id="loginPassword" class="form-control" placeholder="비밀번호를 입력하세요" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">로그인</button>
+                <p class="form-footer">
+                    계정이 없으신가요? <a href="#" id="showSignupModal">회원가입</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- 회원가입 모달 -->
+    <div id="signupModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>회원가입</h2>
+            <form id="signupForm">
+                <div class="form-group">
+                    <label for="signupEmail">이메일</label>
+                    <input type="email" id="signupEmail" class="form-control" placeholder="이메일을 입력하세요" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">비밀번호</label>
+                    <input type="password" id="signupPassword" class="form-control" placeholder="비밀번호를 입력하세요 (최소 6자)" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPasswordConfirm">비밀번호 확인</label>
+                    <input type="password" id="signupPasswordConfirm" class="form-control" placeholder="비밀번호를 다시 입력하세요" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">회원가입</button>
+                <p class="form-footer">
+                    이미 계정이 있으신가요? <a href="#" id="showLoginModal">로그인</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
     <!-- 푸터 -->
     <footer class="footer">
         <div class="container">
@@ -102,5 +157,6 @@
     </footer>
 
     <script src="js/main.js"></script>
+    <script src="js/supabase.js"></script>
 </body>
 </html>
