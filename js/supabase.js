@@ -13,19 +13,14 @@ let supabase = null;
 function initializeSupabase() {
     try {
         // Supabase 라이브러리가 로드되었는지 확인
-        if (typeof window.supabase === 'undefined') {
-            console.warn('Supabase 라이브러리가 로드되지 않았습니다. HTML에 Supabase CDN을 추가하세요.');
-            return null;
-        }
-
-        // 실제 URL과 Key가 설정되었는지 확인
-        if (SUPABASE_URL === 'YOUR_SUPABASE_URL' || SUPABASE_ANON_KEY === 'YOUR_SUPABASE_ANON_KEY') {
-            console.warn('Supabase 설정이 완료되지 않았습니다. SUPABASE_URL과 SUPABASE_ANON_KEY를 설정하세요.');
+        if (typeof window.supabase === 'undefined' || typeof window.supabase.createClient === 'undefined') {
+            console.error('Supabase 라이브러리가 로드되지 않았습니다. HTML에 Supabase CDN을 추가하세요.');
             return null;
         }
 
         supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         console.log('Supabase 클라이언트가 초기화되었습니다.');
+        window.supabaseClient = supabase; // 전역 접근을 위해
         return supabase;
     } catch (error) {
         console.error('Supabase 초기화 오류:', error);
@@ -33,10 +28,13 @@ function initializeSupabase() {
     }
 }
 
-// 페이지 로드 시 Supabase 초기화
-document.addEventListener('DOMContentLoaded', () => {
+// 즉시 초기화 시도
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeSupabase);
+} else {
+    // 이미 DOMContentLoaded가 발생한 경우
     initializeSupabase();
-});
+}
 
 // 회원가입 처리
 async function handleSignup(email, password) {
