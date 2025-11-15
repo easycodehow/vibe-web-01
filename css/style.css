@@ -879,42 +879,94 @@ textarea.form-control {
     }
 }
 
-/* ===== 게시글 상세보기 모달 ===== */
-.modal-large {
-    max-width: 800px;
-    width: 95%;
+/* ===== 게시글 상세보기 페이지 ===== */
+.back-button-container {
+    margin-bottom: 2rem;
 }
 
-.post-detail {
-    padding: 1rem 0;
+.post-detail-page {
+    background-color: var(--bg-white);
+    border-radius: 12px;
+    padding: 3rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    margin-bottom: 2rem;
+}
+
+.post-detail-article {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.post-detail-header {
+    margin-bottom: 2rem;
 }
 
 .post-detail-title {
     color: var(--text-dark);
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
     line-height: 1.4;
+    font-weight: 700;
 }
 
 .post-detail-meta {
     display: flex;
-    gap: 1.5rem;
+    gap: 2rem;
     color: var(--text-light);
     font-size: 0.95rem;
-    margin-bottom: 1rem;
+}
+
+.post-author,
+.post-date {
+    display: flex;
+    align-items: center;
 }
 
 .post-detail-divider {
-    height: 2px;
-    background: linear-gradient(90deg, var(--primary-color), transparent);
-    margin: 1.5rem 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-color), var(--primary-light), transparent);
+    margin: 2rem 0;
+    border-radius: 2px;
 }
 
 .post-detail-content {
     color: var(--text-dark);
-    font-size: 1.05rem;
-    line-height: 1.8;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    min-height: 200px;
+    font-size: 1.1rem;
+    line-height: 1.9;
+    min-height: 300px;
+}
+
+.post-not-found {
+    text-align: center;
+    padding: 5rem 2rem;
+}
+
+.post-not-found h2 {
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+}
+
+.post-not-found p {
+    color: var(--text-medium);
+    margin-bottom: 2rem;
+}
+
+/* 반응형 - 게시글 상세 */
+@media (max-width: 768px) {
+    .post-detail-page {
+        padding: 2rem 1.5rem;
+    }
+
+    .post-detail-title {
+        font-size: 1.5rem;
+    }
+
+    .post-detail-meta {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .post-detail-content {
+        font-size: 1rem;
+    }
 }

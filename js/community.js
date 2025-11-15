@@ -224,21 +224,8 @@ function displayPosts() {
 
 // 게시글 상세보기
 function viewPostDetail(postId) {
-    const post = allPosts.find(p => p.id === postId);
-    if (!post) {
-        showNotification('게시글을 찾을 수 없습니다.', 'error');
-        return;
-    }
-
-    // 모달에 내용 채우기
-    document.getElementById('postDetailTitle').textContent = post.title;
-    document.getElementById('postDetailAuthor').textContent = post.author_email || '익명';
-    document.getElementById('postDetailDate').textContent = formatDate(post.created_at);
-    document.getElementById('postDetailContent').textContent = post.content;
-
-    // 모달 열기
-    const modal = document.getElementById('postDetailModal');
-    openModal(modal);
+    // 게시글 상세 페이지로 이동
+    window.location.href = `post-detail.html?id=${postId}`;
 }
 
 // 페이지네이션 생성
