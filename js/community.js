@@ -207,7 +207,7 @@ function displayPosts() {
 
     // 게시글 HTML 생성
     postsList.innerHTML = paginatedPosts.map(post => `
-        <div class="post-item">
+        <div class="post-item" onclick="viewPostDetail(${post.id})">
             <div class="post-header">
                 <h3 class="post-title">${escapeHtml(post.title)}</h3>
             </div>
@@ -215,14 +215,30 @@ function displayPosts() {
                 <span>${post.author_email || '익명'}</span>
                 <span>${formatDate(post.created_at)}</span>
             </div>
-            <div class="post-content-preview">
-                ${escapeHtml(truncateText(post.content, 150))}
-            </div>
         </div>
     `).join('');
 
     // 페이지네이션 생성
     createPagination(sortedPosts.length);
+}
+
+// 게시글 상세보기
+function viewPostDetail(postId) {
+    const post = allPosts.find(p => p.id === postId);
+    if (!post) {
+        showNotification('게시글을 찾을 수 없습니다.', 'error');
+        return;
+    }
+
+    // 모달에 내용 채우기
+    document.getElementById('postDetailTitle').textContent = post.title;
+    document.getElementById('postDetailAuthor').textContent = post.author_email || '익명';
+    document.getElementById('postDetailDate').textContent = formatDate(post.created_at);
+    document.getElementById('postDetailContent').textContent = post.content;
+
+    // 모달 열기
+    const modal = document.getElementById('postDetailModal');
+    openModal(modal);
 }
 
 // 페이지네이션 생성
@@ -310,3 +326,4 @@ function formatDate(dateString) {
 window.loadPosts = loadPosts;
 window.createPost = createPost;
 window.changePage = changePage;
+window.viewPostDetail = viewPostDetail;

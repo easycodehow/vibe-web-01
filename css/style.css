@@ -661,6 +661,7 @@ textarea.form-control {
     padding: 1.5rem;
     border-bottom: 1px solid var(--border-light);
     transition: background-color 0.3s ease;
+    cursor: pointer;
 }
 
 .post-item:hover {
@@ -876,4 +877,44 @@ textarea.form-control {
     .modal-content {
         padding: 1.5rem;
     }
+}
+
+/* ===== 게시글 상세보기 모달 ===== */
+.modal-large {
+    max-width: 800px;
+    width: 95%;
+}
+
+.post-detail {
+    padding: 1rem 0;
+}
+
+.post-detail-title {
+    color: var(--text-dark);
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+}
+
+.post-detail-meta {
+    display: flex;
+    gap: 1.5rem;
+    color: var(--text-light);
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+}
+
+.post-detail-divider {
+    height: 2px;
+    background: linear-gradient(90deg, var(--primary-color), transparent);
+    margin: 1.5rem 0;
+}
+
+.post-detail-content {
+    color: var(--text-dark);
+    font-size: 1.05rem;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    min-height: 200px;
 }
